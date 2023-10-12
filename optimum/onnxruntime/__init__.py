@@ -158,7 +158,7 @@ def uninstall_cuda11x():
     '''required for CPU-only inference'''
     try:
         subprocess.check_call([sys.executable, "-m", "pip", "uninstall", "cupy-cuda11x", "-y"])
-        print(f"{pkg_name} uninstalled successfully")
+        print(f"cupy-cuda11x uninstalled successfully")
     except subprocess.CalledProcessError as e:
         print(f"Note: {str(e)}")
         
