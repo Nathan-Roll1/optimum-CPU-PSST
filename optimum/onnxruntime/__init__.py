@@ -16,6 +16,8 @@ from typing import TYPE_CHECKING
 from transformers.utils import OptionalDependencyNotAvailable, _LazyModule
 
 from ..utils import is_diffusers_available
+import subprocess
+import sys
 
 
 _import_structure = {
@@ -151,5 +153,15 @@ if TYPE_CHECKING:
         )
 else:
     import sys
+    
+def uninstall_cuda11x():
+    '''required for CPU-only inference'''
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "uninstall", "cupy-cuda11x", "-y"])
+        print(f"{pkg_name} uninstalled successfully")
+    except subprocess.CalledProcessError as e:
+        print(f"Note: {str(e)}")
+        
+uninstall_cuda11x()
 
     sys.modules[__name__] = _LazyModule(__name__, globals()["__file__"], _import_structure, module_spec=__spec__)
